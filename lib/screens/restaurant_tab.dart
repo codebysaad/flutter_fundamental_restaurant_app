@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluuter_interm_restaurant_app/models/restaurant.dart';
 import 'package:fluuter_interm_restaurant_app/components/restaurant_row_item.dart';
 
@@ -13,7 +14,7 @@ class RestaurantListTab extends StatelessWidget {
         if (snapshot.hasError) {
           return Center(
             child: Text(
-                "Data Tidak berhasil ditampilkan karena terjadi error: ${snapshot.error}"),
+                "Data Not Found, Something Error: ${snapshot.error}"),
           );
         } else if (snapshot.hasData) {
           final List<Restaurant> restaurant =
@@ -34,7 +35,9 @@ class RestaurantListTab extends StatelessWidget {
       semanticChildCount: restaurant.length,
       slivers: <Widget>[
         const CupertinoSliverNavigationBar(
-          largeTitle: Text('Restaurant'),
+          largeTitle: Text('Restaurant App',
+          style: TextStyle(color: Colors.white),),
+          backgroundColor: Colors.blueAccent,
         ),
         SliverSafeArea(
           top: false,

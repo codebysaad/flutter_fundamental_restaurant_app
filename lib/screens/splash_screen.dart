@@ -33,11 +33,11 @@ class _SplashScreen extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Image.asset("assets/images/logo.png", width: 200),
+            Image.asset('assets/images/logo.jpg', width: 200),
             const SizedBox(height: 24.0),
             Text(
               "Restaurant App",
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ],
         ),

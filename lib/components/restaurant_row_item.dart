@@ -63,7 +63,7 @@ class RestaurantRowItem extends StatelessWidget {
                         const Icon(
                           CupertinoIcons.location_solid,
                           size: 13,
-                          color: Color(0xFF8E8E93),
+                          color: Colors.red,
                         ),
                         const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 2)),
@@ -78,7 +78,7 @@ class RestaurantRowItem extends StatelessWidget {
                           const Icon(
                             CupertinoIcons.star_fill,
                             size: 13,
-                            color: Color(0xFF8E8E93),
+                            color: Colors.amber,
                           ),
                           const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 2)),

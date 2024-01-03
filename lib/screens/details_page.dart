@@ -22,7 +22,7 @@ class RestaurantDetailPage extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(15.0)),
           child: Stack(
             children: <Widget>[
-              Image.asset("assets/images/makanan.png",
+              Image.asset('assets/images/food.jpg',
                   fit: BoxFit.cover, width: 1000.0),
               Positioned(
                 bottom: 0.0,
@@ -70,7 +70,7 @@ class RestaurantDetailPage extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(15.0)),
           child: Stack(
             children: <Widget>[
-              Image.asset("assets/images/minuman.png",
+              Image.asset('assets/images/beverage.png',
                   fit: BoxFit.cover, width: 1000.0),
               Positioned(
                 bottom: 0.0,
@@ -136,7 +136,7 @@ class RestaurantDetailPage extends StatelessWidget {
                       const Icon(
                         CupertinoIcons.location_solid,
                         size: 13,
-                        color: Color(0xFF8E8E93),
+                        color: Colors.red,
                       ),
                       const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 2)),
@@ -151,7 +151,7 @@ class RestaurantDetailPage extends StatelessWidget {
                         const Icon(
                           CupertinoIcons.star_fill,
                           size: 13,
-                          color: Color(0xFF8E8E93),
+                          color: Colors.amber,
                         ),
                         const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 2)),
@@ -164,7 +164,7 @@ class RestaurantDetailPage extends StatelessWidget {
                     const SizedBox(height: 5),
                     const Divider(color: Colors.grey),
                     const Text(
-                      "Deskripsi",
+                      "Description",
                       style: Styles.restaurantItemTitleDescription,
                     ),
                     const Padding(padding: EdgeInsets.only(top: 2)),
@@ -176,12 +176,12 @@ class RestaurantDetailPage extends StatelessWidget {
                     const SizedBox(height: 5),
                     const Divider(color: Colors.grey),
                     const Text(
-                      "Menu",
+                      "Menus",
                       style: Styles.restaurantItemTitleDescription,
                     ),
                     const Padding(padding: EdgeInsets.only(top: 5)),
                     const Text(
-                      "Makanan",
+                      "Foods",
                       style: Styles.restaurantItemDescription,
                     ),
                     const Padding(padding: EdgeInsets.only(top: 5)),
@@ -197,7 +197,7 @@ class RestaurantDetailPage extends StatelessWidget {
                     ),
                     const Padding(padding: EdgeInsets.only(top: 5)),
                     const Text(
-                      "Minuman",
+                      "Beverages",
                       style: Styles.restaurantItemDescription,
                     ),
                     const Padding(padding: EdgeInsets.only(top: 5)),

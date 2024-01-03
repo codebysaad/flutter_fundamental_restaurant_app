@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluuter_interm_restaurant_app/screens/restaurant_list.dart';
-import 'package:fluuter_interm_restaurant_app/components/search_tab.dart';
+import 'package:fluuter_interm_restaurant_app/screens/restaurant_tab.dart';
+import 'package:fluuter_interm_restaurant_app/screens/favourite_tab.dart';
 import 'package:fluuter_interm_restaurant_app/components/platform_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,11 +20,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   int _bottomNavIndex = 0;
   static const String _home = 'Home';
-  static const String _search = 'Search';
+  static const String _favourite = 'Favourite';
 
   final List<Widget> _listWidget = [
     const RestaurantListTab(),
-    const SearchTab(),
+    const FavouriteTab(),
   ];
 
   final List<BottomNavigationBarItem> _bottomNavBarItems = [
@@ -33,8 +33,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       label: _home,
     ),
     BottomNavigationBarItem(
-      icon: Icon(Platform.isIOS ? CupertinoIcons.search : Icons.search),
-      label: _search,
+      icon: Icon(Platform.isIOS ? CupertinoIcons.star_circle : Icons.star_border),
+      label: _favourite,
     ),
   ];
 
