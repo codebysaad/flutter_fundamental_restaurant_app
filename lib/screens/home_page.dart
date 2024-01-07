@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:fluuter_interm_restaurant_app/screens/restaurant_tab.dart';
 import 'package:fluuter_interm_restaurant_app/screens/favourite_tab.dart';
 import 'package:fluuter_interm_restaurant_app/components/platform_widget.dart';
+import 'package:fluuter_interm_restaurant_app/screens/settings_page.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home_page';
@@ -20,11 +21,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   int _bottomNavIndex = 0;
   static const String _home = 'Home';
+  static const String _settings = 'Settings';
   static const String _favourite = 'Favourite';
 
   final List<Widget> _listWidget = [
     const RestaurantListTab(),
     const FavouriteTab(),
+    const SettingsPage(),
   ];
 
   final List<BottomNavigationBarItem> _bottomNavBarItems = [
@@ -35,6 +38,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     BottomNavigationBarItem(
       icon: Icon(Platform.isIOS ? CupertinoIcons.star_circle : Icons.star_border),
       label: _favourite,
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Platform.isIOS ? CupertinoIcons.settings : Icons.settings),
+      label: _settings,
     ),
   ];
 
@@ -65,7 +72,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     _controller = TabController(
-      length: 2,
+      length: 3,
       vsync: this,
       initialIndex: 0,
     );

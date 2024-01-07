@@ -22,6 +22,13 @@ abstract class Styles {
     fontWeight: FontWeight.bold,
   );
 
+  static const TextStyle restaurantTitleCategories = TextStyle(
+    color: Color.fromRGBO(0, 0, 0, 0.8),
+    fontSize: 18,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.bold,
+  );
+
   static const TextStyle restaurantItemDescription = TextStyle(
     color: Color.fromRGBO(0, 0, 0, 0.8),
     fontSize: 17,

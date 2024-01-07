@@ -1,0 +1,1 @@
+enum ConstState { loading, noData, hasData, error, success }

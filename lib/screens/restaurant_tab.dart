@@ -1,67 +1,80 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluuter_interm_restaurant_app/models/restaurant.dart';
-import 'package:fluuter_interm_restaurant_app/components/restaurant_row_item.dart';
+import 'package:fluuter_interm_restaurant_app/components/loading_progress.dart';
+import 'package:fluuter_interm_restaurant_app/components/text_message.dart';
+import 'package:fluuter_interm_restaurant_app/screens/restaurant_search_page.dart';
+import 'package:fluuter_interm_restaurant_app/utils/const_state.dart';
+import 'package:provider/provider.dart';
+import 'package:fluuter_interm_restaurant_app/provider/restaurant_list_provider.dart';
+import 'package:fluuter_interm_restaurant_app/components/restaurant_item.dart';
 
 class RestaurantListTab extends StatelessWidget {
-  const RestaurantListTab({Key? key}) : super(key: key);
+  static const routeName = '/restaurant_tab';
 
-  Widget _buildList(BuildContext context) {
-    return FutureBuilder<String>(
-      future: DefaultAssetBundle.of(context)
-          .loadString('assets/local_restaurant.json'),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text(
-                "Data Not Found, Something Error: ${snapshot.error}"),
-          );
-        } else if (snapshot.hasData) {
-          final List<Restaurant> restaurant =
-          Restaurant.parseRestaurants(snapshot.data);
-          return _buildRestaurantItem(context, restaurant);
-        } else {
-          return const Center(
-            child: CupertinoActivityIndicator(),
-          );
+  const RestaurantListTab({super.key});
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: const Text(
+        'Restaurant App',
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: Colors.blueAccent,
+      actions: [
+        IconButton(
+          icon: const Icon(
+            Icons.search,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, RestaurantSearchPage.routeName);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildList() {
+    return Consumer<RestaurantListProvider>(
+      builder: (_, provider, __) {
+        switch (provider.state) {
+          case ConstState.loading:
+            return const LoadingAnimation();
+          case ConstState.hasData:
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
+              itemCount: provider.result.count,
+              itemBuilder: (_, index) {
+                // return _buildRestaurantItem(provider.result.restaurants);
+                final restaurant = provider.result.restaurants[index];
+                return RestaurantItem(restaurant: restaurant);
+              },
+            );
+          case ConstState.noData:
+            return const TextMessage(
+              image: 'assets/images/empty-data.png',
+              message: 'Empty Data',
+            );
+          case ConstState.error:
+            return TextMessage(
+              image: 'assets/images/no-internet.png',
+              message: 'Lost Connection',
+              onPressed: () => provider.fetchAllRestaurant(),
+            );
+          default:
+            return const SizedBox();
         }
       },
     );
   }
 
-  Widget _buildRestaurantItem(
-      BuildContext context, List<Restaurant> restaurant) {
-    return CustomScrollView(
-      semanticChildCount: restaurant.length,
-      slivers: <Widget>[
-        const CupertinoSliverNavigationBar(
-          largeTitle: Text('Restaurant App',
-          style: TextStyle(color: Colors.white),),
-          backgroundColor: Colors.blueAccent,
-        ),
-        SliverSafeArea(
-          top: false,
-          minimum: const EdgeInsets.only(top: 8),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                if (index < restaurant.length) {
-                  return RestaurantRowItem(
-                    restaurant: restaurant[index],
-                    lastItem: index == restaurant.length - 1,
-                  );
-                }
-                return null;
-              },
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return _buildList(context);
+    return Scaffold(
+      appBar: _buildAppBar(context),
+      body: _buildList(),
+    );
   }
 }
