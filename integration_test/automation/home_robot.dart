@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -5,6 +7,10 @@ class HomeRobot {
   final WidgetTester tester;
 
   HomeRobot(this.tester);
+
+  Future<void> waitingSplashScreen() async {
+    sleep(const Duration(seconds: 8));
+  }
 
   Future<void> scrollRestaurant({bool scrollUp = false}) async {
     final scrollViewFinder = find.byKey(const Key('restaurantScrollView'));
