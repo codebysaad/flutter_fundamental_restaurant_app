@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluuter_interm_restaurant_app/data/database/db_helper.dart';
+import 'package:fluuter_interm_restaurant_app/provider/preferences_provider.dart';
 import 'package:fluuter_interm_restaurant_app/provider/restaurant_list_provider.dart';
 import 'package:fluuter_interm_restaurant_app/provider/restaurant_search_provider.dart';
+import 'package:fluuter_interm_restaurant_app/provider/scheduling_provider.dart';
 import 'package:fluuter_interm_restaurant_app/screens/home_page.dart';
 import 'package:fluuter_interm_restaurant_app/screens/details_page.dart';
 import 'package:fluuter_interm_restaurant_app/screens/restaurant_search_page.dart';
 import 'package:fluuter_interm_restaurant_app/screens/restaurant_tab.dart';
 import 'package:fluuter_interm_restaurant_app/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'data/preferences/preferences_helper.dart';
 import 'data/rest/api_services.dart';
 import 'package:fluuter_interm_restaurant_app/themes/navigation.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:fluuter_interm_restaurant_app/provider/db_provider.dart';
 import 'models/model_restaurant_list.dart';
+
+final FlutterLocalNotificationsPlugin localNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +35,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (_) => DbProvider(databaseHelper: DbHelper()),
+        ),
+        ChangeNotifierProvider(
           create: (_) => RestaurantListProvider(
             apiService: ApiService(http.Client()),
           ),
@@ -35,6 +47,16 @@ class MyApp extends StatelessWidget {
             apiService: ApiService(http.Client()),
           ),
         ),
+        ChangeNotifierProvider(
+          create: (_) => SchedulingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PreferencesProvider(
+            preferencesHelper: SharedPrefHelper(
+              sharedPreferences: SharedPreferences.getInstance(),
+            ),
+          ),
+        )
       ],
       child: MaterialApp(
         title: 'Restaurant App',

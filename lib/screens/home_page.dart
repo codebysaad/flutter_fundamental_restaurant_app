@@ -7,6 +7,8 @@ import 'package:fluuter_interm_restaurant_app/screens/restaurant_tab.dart';
 import 'package:fluuter_interm_restaurant_app/screens/favourite_tab.dart';
 import 'package:fluuter_interm_restaurant_app/components/platform_widget.dart';
 import 'package:fluuter_interm_restaurant_app/screens/settings_page.dart';
+import 'package:fluuter_interm_restaurant_app/utils/notification_helper.dart';
+import 'details_page.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home_page';
@@ -18,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late TabController _controller;
+  final NotificationHelper _notificationHelper = NotificationHelper();
 
   int _bottomNavIndex = 0;
   static const String _home = 'Home';
@@ -36,7 +39,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       label: _home,
     ),
     BottomNavigationBarItem(
-      icon: Icon(Platform.isIOS ? CupertinoIcons.star_circle : Icons.star_border),
+      icon: Icon(Platform.isIOS ? CupertinoIcons.star_fill : Icons.star),
       label: _favourite,
     ),
     BottomNavigationBarItem(
@@ -77,10 +80,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       initialIndex: 0,
     );
     super.initState();
+    _notificationHelper
+        .configureSelectNotificationSubject(RestaurantDetailPage.routeName);
   }
 
   @override
   void dispose() {
+    selectNotificationSubject.close();
     _controller.dispose();
     super.dispose();
   }

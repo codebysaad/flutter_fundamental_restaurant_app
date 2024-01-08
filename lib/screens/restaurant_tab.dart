@@ -47,7 +47,6 @@ class RestaurantListTab extends StatelessWidget {
               ),
               itemCount: provider.result.count,
               itemBuilder: (_, index) {
-                // return _buildRestaurantItem(provider.result.restaurants);
                 final restaurant = provider.result.restaurants[index];
                 return RestaurantItem(restaurant: restaurant);
               },
@@ -75,6 +74,7 @@ class RestaurantListTab extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _buildList(),
+      key: const Key('restaurantScrollView'),
     );
   }
 }

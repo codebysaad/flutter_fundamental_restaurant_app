@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluuter_interm_restaurant_app/models/model_restaurant_detail.dart';
-import '../provider/restaurant_detail_provider.dart';
+import 'package:fluuter_interm_restaurant_app/provider/restaurant_detail_provider.dart';
 
 class PopUpReview extends StatelessWidget {
   final RestaurantDetail restaurant;
