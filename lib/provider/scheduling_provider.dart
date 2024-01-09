@@ -23,7 +23,7 @@ class SchedulingProvider extends ChangeNotifier {
         wakeup: true,
       );
     } else {
-      debugPrint('Scheduling News Cancel');
+      debugPrint('Scheduling Restaurant Cancel');
       notifyListeners();
 
       return await AndroidAlarmManager.cancel(1);

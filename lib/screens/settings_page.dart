@@ -34,7 +34,10 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings Page', style: TextStyle(color: Colors.white),),
+        title: const Text(
+          'Settings Page',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.blueAccent,
       ),
       body: Consumer<PreferencesProvider>(
@@ -45,6 +48,7 @@ class SettingsPage extends StatelessWidget {
                 scheduled.scheduledReminder(value);
                 preferences.enableDailyReminder(value);
               }
+
               return SwitchListTile(
                 title: const Text('Daily Reminder'),
                 value: preferences.isDailyReminderActive,
@@ -69,6 +73,8 @@ class SettingsPage extends StatelessWidget {
                           }
                         }
                       }
+                    } else {
+                      setReminder(value);
                     }
                   } else {
                     setReminder(value);
