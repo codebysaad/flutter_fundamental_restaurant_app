@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluuter_interm_restaurant_app/data/database/db_helper.dart';
@@ -10,6 +12,8 @@ import 'package:fluuter_interm_restaurant_app/screens/details_page.dart';
 import 'package:fluuter_interm_restaurant_app/screens/restaurant_search_page.dart';
 import 'package:fluuter_interm_restaurant_app/screens/restaurant_tab.dart';
 import 'package:fluuter_interm_restaurant_app/screens/splash_screen.dart';
+import 'package:fluuter_interm_restaurant_app/utils/background_service.dart';
+import 'package:fluuter_interm_restaurant_app/utils/notification_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'data/preferences/preferences_helper.dart';
@@ -24,6 +28,18 @@ FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final NotificationHelper notificationHelper = NotificationHelper();
+  final BackgroundService service = BackgroundService();
+
+  service.initializeIsolate();
+
+  if (Platform.isAndroid) {
+    await AndroidAlarmManager.initialize();
+  }
+
+  await notificationHelper.initialNotification(localNotificationsPlugin);
+
   runApp(const MyApp());
 }
 
